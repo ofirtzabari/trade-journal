@@ -10,6 +10,9 @@ namespace TradeApp.Model
 {
     public class Trade
     {
+        private DateTime enterDate;
+        private DateTime? exitDate;
+
         [Key] // הגדרת מפתח ראשי
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)] // Auto-increment
         public int Id { get; set; }
@@ -28,30 +31,52 @@ namespace TradeApp.Model
 
         public bool? PositionType { get; set; }
 
-        // עדכון חישוב PnL בהתאם לסוג הפוזיציה
-        public float ProfitLoss => PositionType == false // שינוי לבדיקה נכונה
-            ? (ExitPrice - EnterPrice) * Quantity
-            : (EnterPrice - ExitPrice) * Quantity;
+        public bool IsOpen { get; set; }
 
-        // עדכון חישוב אחוז ההחזר בהתאם לסוג הפוזיציה
-        public float ReturnPercentage => EnterPrice != 0
-            ? PositionType == false // שינוי לבדיקה נכונה
+        public float ProfitLoss => IsOpen
+            ? 0 // עסקה פתוחה עדיין לא נסגרה ולכן אין רווח/הפסד
+            : (PositionType == false
+                ? (ExitPrice - EnterPrice) * Quantity
+                : (EnterPrice - ExitPrice) * Quantity);
+
+        // עדכון חישוב אחוז ההחזר בהתאם לסוג הפוזיציה והאם היא פתוחה
+        public float ReturnPercentage => IsOpen || EnterPrice == 0
+            ? 0 // עסקה פתוחה או מחיר כניסה לא תקף -> החזר 0%
+            : (PositionType == false
                 ? ((ExitPrice - EnterPrice) / EnterPrice) * 100
-                : ((EnterPrice - ExitPrice) / EnterPrice) * 100
-            : 0;
+                : ((EnterPrice - ExitPrice) / EnterPrice) * 100);
 
-        public string PositionTypeDescription => PositionType == false ? "Long" : "Short"; // עדכון תיאור נכון
+        public string PositionTypeDescription => PositionType == false ? "Long" : "Short";
+
+        public string DisplayExitPrice => IsOpen ? "" : ExitPrice.ToString("F2");
+
+        
+        public string DisplayProfitLoss => IsOpen ? "" : ProfitLoss.ToString("F2");
 
         public TimeSpan? TradeDuration => (EnterDateTime.HasValue && ExitDateTime.HasValue)
         ? ExitDateTime - EnterDateTime
         : null;
 
-        public Trade(string ticker, float quantity, DateTime? enterDateTime, DateTime? exitDateTime, float enterPrice, float exitPrice, bool? positionType)
+        public string TradeStatus => IsOpen ? "Open" : "Closed";
+
+        public Trade(string ticker, float quantity, DateTime? enterDateTime, DateTime? exitDateTime, float enterPrice, float exitPrice, bool? positionType, bool isOpen)
         {
             Ticker = ticker;
             Quantity = quantity;
             EnterDateTime = enterDateTime;
             ExitDateTime = exitDateTime;
+            EnterPrice = enterPrice;
+            ExitPrice = exitPrice;
+            PositionType = positionType;
+            IsOpen = isOpen;
+        }
+
+        public Trade(string ticker, float quantity, DateTime enterDate, DateTime? exitDate, float enterPrice, float exitPrice, bool positionType)
+        {
+            Ticker = ticker;
+            Quantity = quantity;
+            this.enterDate = enterDate;
+            this.exitDate = exitDate;
             EnterPrice = enterPrice;
             ExitPrice = exitPrice;
             PositionType = positionType;

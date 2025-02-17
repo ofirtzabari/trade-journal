@@ -65,6 +65,7 @@ namespace TradeApp
                 float exitPrice = float.Parse(exitPrice_textbox.Text);
                 float quantity = float.Parse(quantity_textbox.Text);
                 bool? positionType = positionToggle.IsChecked;
+                bool IsOpen = isOpen_checkbox.IsChecked == true ? true : false;
 
                 if (isEditMode && existingTrade != null)
                 {
@@ -76,13 +77,14 @@ namespace TradeApp
                     existingTrade.ExitPrice = exitPrice;
                     existingTrade.Quantity = quantity;
                     existingTrade.PositionType = positionType;
+                    existingTrade.IsOpen = IsOpen;
 
                     TradeData.UpdateTradeInDb(existingTrade);
                 }
                 else
                 {
                     // Create new trade
-                    Trade t = new(ticker, quantity, enterDT, exitDT, enterPrice, exitPrice, positionType);
+                    Trade t = new(ticker, quantity, enterDT, exitDT, enterPrice, exitPrice, positionType, IsOpen);
                     TradeData.AddTradeToDb(t);
                     trades.Add(t);
                 }
@@ -116,6 +118,7 @@ namespace TradeApp
             exitPrice_textbox.Text = trade.ExitPrice.ToString();
             quantity_textbox.Text = trade.Quantity.ToString();
             positionToggle.IsChecked = trade.PositionType;
+            isOpen_checkbox.IsChecked = trade.IsOpen;
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
@@ -135,6 +138,29 @@ namespace TradeApp
             positionToggle.Content = "Long";
             positionToggle.Foreground = Brushes.Green;
             positionToggle.Background = Brushes.LightGray;
+        }
+
+        private void chkDisableExitPrice_Checked(object sender, RoutedEventArgs e)
+        {
+            exitPrice_textbox.Text = "0";
+            exitPrice_textbox.IsEnabled = false;
+        }
+
+        private void chkDisableExitPrice_Unchecked(object sender, RoutedEventArgs e)
+        {
+            exitPrice_textbox.Clear();
+            exitPrice_textbox.IsEnabled = true;
+        }
+
+        private void myTextBox_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var textBox = sender as TextBox;
+            if (textBox != null && !textBox.IsKeyboardFocused)
+            {
+                textBox.Focus();
+                textBox.SelectAll();
+                e.Handled = true; // מונע את התנהגות ברירת המחדל של העכבר
+            }
         }
     }
 }

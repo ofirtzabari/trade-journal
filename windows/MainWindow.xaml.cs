@@ -30,6 +30,7 @@ namespace TradeApp
         public MainWindow()
         {
             InitializeComponent();
+            //RandomTradesGenerator.GenerateRandomTrades(10);
             WindowState = WindowState.Maximized;
             trades = new ObservableCollection<Trade>(TradeData.GetTradeList());
             TradesListView.ItemsSource = trades;
@@ -46,6 +47,7 @@ namespace TradeApp
             tradeCalendar?.GenerateCalendar(DateTime.Now.Year, DateTime.Now.Month);
             // refresh charts
             charts?.GenerateCumulativePnLChart();
+            charts?.GenerateCombinedTradeTypeChart();
         }
 
         private void new_trade(object sender, RoutedEventArgs e)

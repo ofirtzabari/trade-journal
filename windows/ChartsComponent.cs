@@ -109,11 +109,11 @@ namespace TradeApp.Windows
             };
             chartsPanel.Children.Add(title);
 
-            int longTrades = trades.Count(t => t.PositionType == true);
-            int shortTrades = trades.Count(t => t.PositionType == false);
+            int shortTrades = trades.Count(t => t.PositionType == true);
+            int longTrades = trades.Count(t => t.PositionType == false);
 
-            int positiveLongTrades = trades.Count(t => t.PositionType == true && t.ProfitLoss > 0);
-            int positiveShortTrades = trades.Count(t => t.PositionType == false && t.ProfitLoss > 0);
+            int positiveShortTrades = trades.Count(t => t.PositionType == true && t.ProfitLoss > 0);
+            int positiveLongTrades = trades.Count(t => t.PositionType == false && t.ProfitLoss > 0);
 
             var seriesCollection = new SeriesCollection
             {

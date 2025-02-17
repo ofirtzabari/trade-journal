@@ -32,8 +32,8 @@
                 <RowDefinition></RowDefinition>
 
             </Grid.RowDefinitions>
-            <TextBox x:Name="enterPrice_textbox" HorizontalAlignment="Left"  Grid.Row="3" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="172" Height="18" Margin="235,0,0,0"/>
-            <TextBox x:Name="exitPrice_textbox" HorizontalAlignment="Left"  Grid.Row="4" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="172" Height="18" Margin="235,0,0,0"/>
+            <TextBox x:Name="enterPrice_textbox" HorizontalAlignment="Left"  Grid.Row="3" TextWrapping="Wrap" Text="enter start price" VerticalAlignment="Center" Width="172" Height="18" Margin="235,0,0,0"  PreviewMouseDown="myTextBox_PreviewMouseDown"/>
+            <TextBox x:Name="exitPrice_textbox" HorizontalAlignment="Left"  Grid.Row="4" TextWrapping="Wrap" Text="enter exit price" VerticalAlignment="Center" Width="172" Height="18" Margin="235,0,0,0"  PreviewMouseDown="myTextBox_PreviewMouseDown"/>
             <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Enter date and time" VerticalAlignment="Center" Width="213" Foreground="White" FontSize="24" Margin="10,0,0,0" Grid.Row="1" Height="32" />
             <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Exit date and time" VerticalAlignment="Center" Width="212" Foreground="White" FontSize="24" Grid.Row="2" Height="32" Margin="10,0,0,0" />
             <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Enter price" VerticalAlignment="Center" Width="213" Foreground="White" FontSize="24" Grid.Row="3" Height="32" Margin="10,0,0,0" />
@@ -42,10 +42,10 @@
             <xctk:DateTimePicker HorizontalAlignment="Left" x:Name="enterDateTime" Width="172" Format="Custom" FormatString="dd/MM/yyyy HH:mm"  Grid.Row="1" Margin="235,10,0,11" />
             <xctk:DateTimePicker HorizontalAlignment="Left" x:Name="exitDateTime" Width="172" Format="Custom" FormatString="dd/MM/yyyy HH:mm" Grid.Row="2" Margin="235,10,0,10" />
             <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Ticker" VerticalAlignment="Top" Width="213" Foreground="White" FontSize="24" Margin="10,13,0,0" Height="32" />
-            <TextBox x:Name="ticker_textbox" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="172" Margin="235,0,0,0" Height="18"/>
+            <TextBox x:Name="ticker_textbox" HorizontalAlignment="Left" TextWrapping="Wrap" Text="enter your ticker here" VerticalAlignment="Center" Width="172" Margin="235,0,0,0" Height="18"  PreviewMouseDown="myTextBox_PreviewMouseDown"/>
             <Button Content="Cancel" HorizontalAlignment="Center"  VerticalAlignment="Top" Height="30" Width="136" Background="#FF827AE0" FontSize="16" FontWeight="Bold" FontFamily="Aharoni" Margin="0,12,0,0" Click="Cancel_Click" Grid.Row="5"/>
             <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Quantity" VerticalAlignment="Center" Width="119" Foreground="White" FontSize="24" Margin="10,0,0,0" Height="32" Grid.Column="1" />
-            <TextBox x:Name="quantity_textbox" HorizontalAlignment="Right" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="172" Height="18" Margin="0,0,10,0" Grid.Column="1"/>
+            <TextBox x:Name="quantity_textbox" HorizontalAlignment="Right" TextWrapping="Wrap" Text="enter quantity" VerticalAlignment="Center" Width="172" Height="18" Margin="0,0,10,0" Grid.Column="1"  PreviewMouseDown="myTextBox_PreviewMouseDown"/>
             <ToggleButton x:Name="positionToggle"
               Width="100"
               Height="40"
@@ -55,6 +55,9 @@
               Checked="positionToggle_Checked"
               Unchecked="positionToggle_Unchecked" Grid.Column="1" Margin="209,10,46,11" Grid.Row="1" FontWeight="Bold" FontSize="20"/>
             <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="long/short" VerticalAlignment="Center" Width="119" Foreground="White" FontSize="24" Margin="8,0,0,0" Height="32" Grid.Column="1" Grid.Row="1" />
+            <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="10,15,0,0" Grid.Row="4" TextWrapping="Wrap" Text="Is open trade" VerticalAlignment="Top" Foreground="White" FontSize="22"/>
+            <CheckBox x:Name="isOpen_checkbox" Grid.Column="1" Content="" HorizontalAlignment="Left" Margin="157,0,0,0" Grid.Row="4" VerticalAlignment="Center" Checked="chkDisableExitPrice_Checked"
+                    Unchecked="chkDisableExitPrice_Unchecked"/>
 
         </Grid>
     </Grid>

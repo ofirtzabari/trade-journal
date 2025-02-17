@@ -74,25 +74,26 @@
                 <TextBlock x:Name="Charts" HorizontalAlignment="Center" Grid.Row="4" TextWrapping="Wrap" Text="Charts" VerticalAlignment="Center" FontWeight="Bold" FontSize="24" Foreground="White" MouseDown="Chart_MouseDown"/>
             </Grid>
             <Grid Grid.Column="1" x:Name="TradesPanel" Visibility="Collapsed" Margin="10">
-                <ListView x:Name="TradesListView" Margin="10" Background="#FF1E1E2F" Foreground="White" FontSize="16">
+                <ListView x:Name="TradesListView" Margin="10" Background="#FF1E1E2F" Foreground="White" FontSize="20">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Ticker" DisplayMemberBinding="{Binding Ticker}" Width="100"/>
                             <GridViewColumn Header="Quantity" DisplayMemberBinding="{Binding Quantity}" Width="80"/>
-                            <GridViewColumn Header="Entry Date" DisplayMemberBinding="{Binding EnterDateTime}" Width="200"/>
-                            <GridViewColumn Header="ExitDate" DisplayMemberBinding="{Binding ExitDateTime}" Width="200"/>
+                            <GridViewColumn Header="Entry Date" DisplayMemberBinding="{Binding EnterDateTime}" Width="220"/>
+                            <GridViewColumn Header="ExitDate" DisplayMemberBinding="{Binding ExitDateTime}" Width="220"/>
                             <GridViewColumn Header="Entry Price" DisplayMemberBinding="{Binding EnterPrice}" Width="130"/>
-                            <GridViewColumn Header="Exit Price" DisplayMemberBinding="{Binding ExitPrice}" Width="130"/>
-                            <GridViewColumn Header="PnL" DisplayMemberBinding="{Binding ProfitLoss}" Width="90"/>
+                            <GridViewColumn Header="Exit Price" DisplayMemberBinding="{Binding DisplayExitPrice}" Width="130"/>
+                            <GridViewColumn Header="PnL" DisplayMemberBinding="{Binding DisplayProfitLoss}" Width="90"/>
                             <GridViewColumn Header="Type" DisplayMemberBinding="{Binding PositionTypeDescription}" Width="90"/>
-                            <GridViewColumn Header="Actions" Width="150">
+                            <GridViewColumn Header="Status" DisplayMemberBinding="{Binding TradeStatus}" Width="100"/>
+                            <GridViewColumn Header="Actions" Width="170">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
                                             <!-- כפתור עריכה -->
-                                            <Button Content="Edit" Width="60" Height="30" Tag="{Binding}" Click="EditTrade_Click"/>
+                                            <Button Content="Edit" Width="80" Height="30" Tag="{Binding}" Click="EditTrade_Click"/>
                                             <!-- כפתור מחיקה -->
-                                            <Button Content="Delete" Width="60" Height="30" Tag="{Binding}" Click="DeleteTrade_Click" Background="Red" Foreground="White"/>
+                                            <Button Content="Delete" Width="80" Height="30" Tag="{Binding}" Click="DeleteTrade_Click" Background="Red" Foreground="White"/>
                                         </StackPanel>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
