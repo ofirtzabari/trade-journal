@@ -24,6 +24,7 @@ namespace TradeApp
         private ObservableCollection<Trade> trades;
         private CustomCalendar tradeCalendar;
         private Dashboard dashboard;
+        private ChartsComponent charts;
 
 
         public MainWindow()
@@ -34,6 +35,7 @@ namespace TradeApp
             TradesListView.ItemsSource = trades;
             AddCalendar();
             AddDashboard();
+            AddCharts();
         }
 
         private void RefreshMainWindow()
@@ -42,8 +44,9 @@ namespace TradeApp
             dashboard?.UpdateStatistics();
             // refresh calendar
             tradeCalendar?.GenerateCalendar(DateTime.Now.Year, DateTime.Now.Month);
+            // refresh charts
+            charts?.GenerateCumulativePnLChart();
         }
-
 
         private void new_trade(object sender, RoutedEventArgs e)
         {
@@ -70,6 +73,11 @@ namespace TradeApp
             HideRightSection();
             tradeCalendar.Visibility = Visibility.Visible;
 
+        }
+        private void Chart_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            HideRightSection();
+            charts.Visibility = Visibility.Visible;
         }
         private void HideRightSection()
         {
@@ -99,6 +107,14 @@ namespace TradeApp
             Grid.SetRow(dashboard, 1);
             dashboard.Visibility = Visibility.Collapsed;
             optionGrid.Children.Add(dashboard);
+        }
+        private void AddCharts()
+        {
+            charts = new ChartsComponent(trades);
+            Grid.SetColumn(charts, 1);
+            Grid.SetRow(charts, 1);
+            charts.Visibility = Visibility.Collapsed;
+            optionGrid.Children.Add(charts);
         }
 
         private void EditTrade_Click(object sender, RoutedEventArgs e)

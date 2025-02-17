@@ -57,10 +57,11 @@
         <Grid x:Name="optionGrid" Grid.Row="1" ShowGridLines="True" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="3*"></ColumnDefinition>
+                <ColumnDefinition Width="4*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
                 <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
@@ -70,6 +71,7 @@
                 <TextBlock HorizontalAlignment="Center" Grid.Row="2" TextWrapping="Wrap" Text="My Trades" VerticalAlignment="Center" FontWeight="Bold" FontSize="24" Foreground="White" MouseDown="MyTrades_MouseDown"/>
                 <TextBlock x:Name="calender_textbox" HorizontalAlignment="Center" Grid.Row="3" TextWrapping="Wrap" Text="Calender" VerticalAlignment="Center" FontWeight="Bold" FontSize="24" Foreground="White" MouseDown="Calander_MouseDown"/>
                 <TextBlock HorizontalAlignment="Center" Grid.Row="1" TextWrapping="Wrap" Text="Dashboard" VerticalAlignment="Center" FontWeight="Bold" FontSize="24" Foreground="White" MouseDown="DashBoard_MouseDown"/>
+                <TextBlock x:Name="Charts" HorizontalAlignment="Center" Grid.Row="4" TextWrapping="Wrap" Text="Charts" VerticalAlignment="Center" FontWeight="Bold" FontSize="24" Foreground="White" MouseDown="Chart_MouseDown"/>
             </Grid>
             <Grid Grid.Column="1" x:Name="TradesPanel" Visibility="Collapsed" Margin="10">
                 <ListView x:Name="TradesListView" Margin="10" Background="#FF1E1E2F" Foreground="White" FontSize="16">
