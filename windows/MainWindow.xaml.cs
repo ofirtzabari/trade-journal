@@ -25,6 +25,7 @@ namespace TradeApp
         private CustomCalendar tradeCalendar;
         private Dashboard dashboard;
         private ChartsComponent charts;
+        private PlaybookComponent playbooks;
 
 
         public MainWindow()
@@ -37,6 +38,7 @@ namespace TradeApp
             AddCalendar();
             AddDashboard();
             AddCharts();
+            AddPlaybook();
         }
 
         private void RefreshMainWindow()
@@ -118,6 +120,15 @@ namespace TradeApp
             charts.Visibility = Visibility.Collapsed;
             optionGrid.Children.Add(charts);
         }
+        private void AddPlaybook()
+        {
+            playbooks = new PlaybookComponent();
+            Grid.SetColumn(playbooks, 1);
+            Grid.SetRow(playbooks, 1);
+            playbooks.Visibility = Visibility.Collapsed;
+            optionGrid.Children.Add(playbooks);
+        }
+
 
         private void EditTrade_Click(object sender, RoutedEventArgs e)
         {
@@ -171,6 +182,12 @@ namespace TradeApp
             {
                 MessageBox.Show("Error: Trade not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void Playbook_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            HideRightSection();
+            playbooks.Visibility = Visibility.Visible;
         }
     }
 }

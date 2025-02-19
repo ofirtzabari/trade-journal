@@ -66,12 +66,14 @@
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <Button Content="Add Trade" HorizontalAlignment="Center"  VerticalAlignment="Center" Height="55" Width="142" Background="#FF827AE0" FontSize="24" FontWeight="Bold" FontFamily="Aharoni" Click="new_trade" />
                 <TextBlock HorizontalAlignment="Center" Grid.Row="2" TextWrapping="Wrap" Text="My Trades" VerticalAlignment="Center" FontWeight="Bold" FontSize="24" Foreground="White" MouseDown="MyTrades_MouseDown"/>
                 <TextBlock x:Name="calender_textbox" HorizontalAlignment="Center" Grid.Row="3" TextWrapping="Wrap" Text="Calender" VerticalAlignment="Center" FontWeight="Bold" FontSize="24" Foreground="White" MouseDown="Calander_MouseDown"/>
                 <TextBlock HorizontalAlignment="Center" Grid.Row="1" TextWrapping="Wrap" Text="Dashboard" VerticalAlignment="Center" FontWeight="Bold" FontSize="24" Foreground="White" MouseDown="DashBoard_MouseDown"/>
                 <TextBlock x:Name="Charts" HorizontalAlignment="Center" Grid.Row="4" TextWrapping="Wrap" Text="Charts" VerticalAlignment="Center" FontWeight="Bold" FontSize="24" Foreground="White" MouseDown="Chart_MouseDown"/>
+                <TextBlock x:Name="Playbook" HorizontalAlignment="Center" Grid.Row="5" TextWrapping="Wrap" Text="Playbook" VerticalAlignment="Center" FontWeight="Bold" FontSize="24" Foreground="White" MouseDown="Playbook_MouseDown"/>
             </Grid>
             <Grid Grid.Column="1" x:Name="TradesPanel" Visibility="Collapsed" Margin="10">
                 <ListView x:Name="TradesListView" Margin="10" Background="#FF1E1E2F" Foreground="White" FontSize="20">
@@ -98,6 +100,14 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
+                            <GridViewColumn Header="Review" Width="120">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Review" Command="{Binding ReviewCommand}" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
                         </GridView>
                     </ListView.View>
                 </ListView>

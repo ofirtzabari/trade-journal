@@ -10,7 +10,7 @@ namespace TradeApp.Model
     public class TradeContext : DbContext
     {
         public DbSet<Trade> Trades { get; set; }
-        public string path = @"C:\SRC\TradeApp\TradeApp\DataBase\DataBase.db";
+        public string path = @"C:\SRC\TradeApp\TradeApp\DataBase\Trades.db";
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseSqlite($"Data Source={path}");
     }
 }
