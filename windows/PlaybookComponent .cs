@@ -118,6 +118,7 @@ public class PlaybookComponent : UserControl
                 Width = 100,
                 Height = 40
             };
+            updateButton.Click += (s, e) => EditPlaybook(playbook);
             Grid.SetColumn(updateButton, 2);
             rowGrid.Children.Add(updateButton);
 
@@ -132,6 +133,7 @@ public class PlaybookComponent : UserControl
                 Width = 100,
                 Height = 40
             };
+            deleteButton.Click += (s, e) => DeletePlaybook(playbook);
             Grid.SetColumn(deleteButton, 3);
             rowGrid.Children.Add(deleteButton);
 
@@ -147,6 +149,16 @@ public class PlaybookComponent : UserControl
         Content = playbookGrid;
     }
 
+    private void EditPlaybook(Playbook playbook)
+    {
+        WindowNewPlaybook editPlaybookWindow = new WindowNewPlaybook(playbooks, playbook);
+        editPlaybookWindow.ShowDialog(); // פתיחת החלון בעריכה
+
+        // לאחר סגירת החלון, נטען מחדש את הפלייבוקים
+        RefreshPlaybooks();
+    }
+
+
     private void OpenNewPlaybookWindow(object sender, RoutedEventArgs e)
     {
         WindowNewPlaybook newPlaybookWindow = new WindowNewPlaybook(playbooks);
@@ -156,12 +168,23 @@ public class PlaybookComponent : UserControl
         RefreshPlaybooks();
     }
 
-    private void RefreshPlaybooks()
+    private void DeletePlaybook(Playbook playbook)
     {
-        playbooks.Clear();
-        foreach (var playbook in PlaybookData.GetPlaybookList())
+        var result = MessageBox.Show($"Are you sure you want to delete '{playbook.Name}'?",
+            "Confirm Deletion", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+        if (result == MessageBoxResult.Yes)
         {
-            playbooks.Add(playbook);
+            PlaybookData.DeletePlaybook(playbook);
+            playbooks.Remove(playbook);
+            RefreshPlaybooks(); // רענון הרשימה
         }
     }
+
+    private void RefreshPlaybooks()
+    {
+        playbooks = new ObservableCollection<Playbook>(PlaybookData.GetPlaybookList());
+        InitializePlaybook(); // יצירת ה-UI מחדש כדי לשקף את השינויים
+    }
+
 }

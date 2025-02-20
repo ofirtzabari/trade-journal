@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -25,13 +26,21 @@ namespace TradeApp
         private ObservableCollection<Trade> trades;
         private Trade existingTrade;
         private bool isEditMode;
+        private ObservableCollection<Playbook> playbooks;
+        private List<string> selectedCriteria = new List<string>();
 
         public WindowNewTrade(ObservableCollection<Trade> trades)
         {
             this.trades = trades;
+            this.Width = SystemParameters.PrimaryScreenWidth - 200;
+            this.Height = 600;
             InitializeComponent();
             CenterWindowOnScreen();
-            isEditMode = false;
+
+            // טענת הפלייבוקים לתיבת הבחירה
+            playbooks = new ObservableCollection<Playbook>(PlaybookData.GetPlaybookList());
+            playbookComboBox.ItemsSource = playbooks;
+            playbookComboBox.DisplayMemberPath = "Name";
         }
 
         // Constructor for editing an existing trade
@@ -54,6 +63,30 @@ namespace TradeApp
             this.Top = (screenHeight / 2) - (windowHeight / 2);
         }
 
+        private void PlaybookComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (playbookComboBox.SelectedItem is Playbook selectedPlaybook)
+            {
+                // מנקים קריטריונים קודמים
+                criteriaPanel.Children.Clear();
+                selectedCriteria.Clear();
+
+                foreach (var criterion in selectedPlaybook.Criteria)
+                {
+                    CheckBox checkBox = new CheckBox
+                    {
+                        Content = criterion,
+                        Foreground = Brushes.White,
+                        FontSize = 16,
+                        Margin = new Thickness(0, 5, 0, 0)
+                    };
+                    checkBox.Checked += (s, args) => selectedCriteria.Add(criterion);
+                    checkBox.Unchecked += (s, args) => selectedCriteria.Remove(criterion);
+
+                    criteriaPanel.Children.Add(checkBox);
+                }
+            }
+        }
         private void save_trade(object sender, RoutedEventArgs e)
         {
             try

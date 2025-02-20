@@ -4,6 +4,7 @@ using System.IO;
 using TradeApp.Model;
 using TradeApp.Data;
 using System.Collections.ObjectModel;
+using TradeApp.Context;
 
 public static class RandomTradesGenerator
 {

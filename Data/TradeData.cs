@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TradeApp.Model;
+using TradeApp.Context;
+
 
 namespace TradeApp.Data
 {

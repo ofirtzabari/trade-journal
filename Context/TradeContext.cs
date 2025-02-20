@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using TradeApp.Model;
 
-namespace TradeApp.Model
+namespace TradeApp.Context
 {
     public class TradeContext : DbContext
     {
